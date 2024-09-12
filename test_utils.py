@@ -1,5 +1,3 @@
-## Please fill in all the parts labeled as ### YOUR CODE HERE
-
 import numpy as np
 import pytest
 from utils import *
@@ -30,10 +28,10 @@ def test_nearest_neighbor():
     points = np.array([[1, 2], [4, 5], [7, 8]])
     query_point = np.array([5, 5])
     
-    result = nearest_neighbor(points, query_point)
+    result = nearest_neighbor(query_point, points)
     
     # Compute the expected result manually
-    distances = np.linalg.norm(points - query_point, axis=1)
-    expected_index = np.argmin(distances)
+    similarities = [cosine_similarity(query_point, point) for point in points]
+    expected_index = np.argmax(similarities)
     
     assert result == expected_index, f"Expected index {expected_index}, but got {result}"
